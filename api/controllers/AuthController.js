@@ -5,55 +5,77 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
-const bcrypt = require('bcrypt');
-
 module.exports = {
-  schema: true,
-  attributes: {
-    email: {
-      type: 'string',
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: 'string'
-    },
-  },
 
-  customToJSON: () => {
-    return _.omit(this, ['password'])
-  },
-
-  beforeCreate: (values, next) => {
-    bcrypt.genSalt(10, (err, salt) => {
-      if (err) {
-        console.log(err);
-        return next(err);
+  create: async (req, res) => {
+    try {
+      const params = {
+        email: req.body.email,
+        password: req.body.password
+      };
+      const user = await User.create(params).fetch();
+      // Handle failure condition
+      if (user) {
+        console.log(user);
+        return res.ok({
+          user: user,
+          token: jwt.issue({
+            id: user.id
+          })
+        });
       }
-      bcrypt.hash(values.password, salt, (err, hash) => {
+    } catch (err) {
+      console.log(err);
+      return res.serverError();
+    }
+  },
+
+  login: async (req, res) => {
+    try {
+      let email = req.body.email;
+      let password = req.body.password;
+
+      if (!email || !password) {
+        return res.json(401, {
+          err: 'email and password required'
+        });
+      }
+
+      const user = await User.findOne({
+        email: email
+      });
+      if (!user) {
+        return res.json(401, {
+          err: 'invalid email or password'
+        });
+      }
+
+      User.comparePassword(password, user, async (err, valid) => {
         if (err) {
           console.log(err);
-          return next(err);
+          return res.forbidden();
         }
-        values.password = hash;
-        return next();
-      })
-    })
-  },
 
-  comparePassword: (password, user, cb) => {
-    bcrypt.compare(password, user.password, (err, match) => {
-      if (err) {
-        console.log(err);
-        cb(err);
-      }
-      if (match) {
-        return cb(null, true);
-      } else {
-        return cb(err);
-      }
-    })
+        if (!valid) {
+          return res.forbidden();
+        } else {
+          const institute = await Institute.findOne({
+            email: email
+          });
+          return res.ok({
+            user: user,
+            institute,
+            token: jwt.issue({
+              id: user.id
+            })
+          });
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      return res.serverError(err);
+    }
   }
+
 };
 
