@@ -11,9 +11,6 @@ module.exports = {
       type: "string",
       required: true,
     },
-    gender: {
-      type: "string",
-    },
     email: {
       type: 'string',
       required: true,

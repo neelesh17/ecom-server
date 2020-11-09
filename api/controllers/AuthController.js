@@ -11,15 +11,19 @@ module.exports = {
   //Login function
   login: async function(req, res){
     try{
-       await passport.authenticate('local', function(err, user, info){
+       await passport.authenticate('local', async function(err, user, info){
         if(!user){
             return res.unauthorized();
         }
+        let customer = await Customer.findOne({
+            email: user.email,
+        })
         return res.ok({
             token: jwt.issue({
                 id: user.id
             }),
-            user: user,
+            user,
+            customer,
         });
       })(req, res);
     }catch (err) {

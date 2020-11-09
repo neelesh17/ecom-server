@@ -18,7 +18,7 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-
+//Auth Routes
  'POST /locals/v1/auth/register': {
   controller: 'AuthController',
   action: 'register'
@@ -27,6 +27,20 @@ module.exports.routes = {
 'POST /locals/v1/auth/login': {
   controller: 'AuthController',
   action: 'login'
+},
+
+//Customer Routes
+'POST /locals/v1/customer': {
+  controller: 'CustomerController',
+  action: 'create'
+},
+'GET /locals/v1/customers': {
+  controller: 'CustomerController',
+  action: 'list'
+},
+'GET /locals/v1/customer/:id': {
+  controller: 'CustomerController',
+  action: 'detail'
 },
 
 
