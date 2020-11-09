@@ -19,7 +19,15 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  
+ 'POST /locals/v1/auth/register': {
+  controller: 'AuthController',
+  action: 'register'
+},
+
+'POST /locals/v1/auth/login': {
+  controller: 'AuthController',
+  action: 'login'
+},
 
 
   /***************************************************************************

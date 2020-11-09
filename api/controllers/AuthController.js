@@ -5,75 +5,46 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-module.exports = {
+const passport = require('passport');
 
-  create: async (req, res) => {
-    try {
-      const params = {
-        email: req.body.email,
-        password: req.body.password
-      };
-      const user = await User.create(params).fetch();
-      // Handle failure condition
-      if (user) {
-        console.log(user);
+module.exports = {
+  //Login function
+  login: async function(req, res){
+    try{
+       await passport.authenticate('local', function(err, user, info){
+        if(!user){
+            return res.unauthorized();
+        }
         return res.ok({
-          user: user,
-          token: jwt.issue({
-            id: user.id
-          })
+            token: jwt.issue({
+                id: user.id
+            }),
+            user: user,
         });
-      }
-    } catch (err) {
-      console.log(err);
-      return res.serverError();
+      })(req, res);
+    }catch (err) {
+        console.log(err);
+        return res.serverError();
     }
   },
 
-  login: async (req, res) => {
-    try {
-      let email = req.body.email;
-      let password = req.body.password;
-
-      if (!email || !password) {
-        return res.json(401, {
-          err: 'email and password required'
-        });
-      }
-
-      const user = await User.findOne({
-        email: email
-      });
-      if (!user) {
-        return res.json(401, {
-          err: 'invalid email or password'
-        });
-      }
-
-      User.comparePassword(password, user, async (err, valid) => {
-        if (err) {
-          console.log(err);
-          return res.forbidden();
+  //Register function
+  register: async function(req, res){
+    try{
+        data = {
+            email: req.body.email,
+            password: req.body.password,
         }
-
-        if (!valid) {
-          return res.forbidden();
-        } else {
-          const institute = await Institute.findOne({
-            email: email
-          });
-          return res.ok({
+        const user = await User.create(data).fetch();
+        return res.ok({
             user: user,
-            institute,
             token: jwt.issue({
-              id: user.id
+                id: user.id
             })
-          });
-        }
-      });
+        });
     } catch (err) {
-      console.log(err);
-      return res.serverError(err);
+        console.log(err);
+        return res.serverError();
     }
   }
 
