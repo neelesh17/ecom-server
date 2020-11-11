@@ -53,6 +53,24 @@ module.exports.routes = {
   action: 'list'
 },
 
+//Product Route
+'POST /locals/v1/product': {
+  controller: 'ProductController',
+  action: 'create'
+},
+'GET /locals/v1/products/:category_id': {
+  controller: 'ProductController',
+  action: 'list'
+},
+'GET /locals/v1/products/:category_id/:sub_category': {
+  controller: 'ProductController',
+  action: 'filteredlist'
+},
+'GET /locals/v1/product/:id': {
+  controller: 'ProductController',
+  action: 'detail'
+},
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

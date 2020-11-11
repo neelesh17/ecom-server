@@ -8,10 +8,6 @@
 module.exports = {
 
   attributes: {
-    // retailer_id: {
-    //   type: "string",
-    //   required: true,
-    // },
     title: {
       type: "string",
       required: true,

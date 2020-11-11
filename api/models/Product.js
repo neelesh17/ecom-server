@@ -12,7 +12,31 @@ module.exports = {
       type: "string",
       required: true,
     },
-    img_src: {
+    image1: {
+      type: "string",
+      required: true,
+    },
+    image2: {
+      type: "string",
+      required: true,
+    },
+    image3: {
+      type: "string",
+      required: true,
+    },
+    price: {
+      type: "string",
+      required: true,
+    },
+    company: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: true,
+    },
+    category_id: {
       type: "string",
       required: true,
     },

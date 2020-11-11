@@ -10,7 +10,7 @@ module.exports = {
         try{
             let params = req.body;
             const category = await Category.create(params).fetch();
-            return res.ok(category);
+            return res.ok({category});
         }catch(error){
             console.log(error);
             return res.serverError(error);
