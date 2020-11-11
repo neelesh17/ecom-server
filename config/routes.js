@@ -43,6 +43,15 @@ module.exports.routes = {
   action: 'detail'
 },
 
+//Category Routes
+'POST /locals/v1/category': {
+  controller: 'CategoryController',
+  action: 'create'
+},
+'GET /locals/v1/category': {
+  controller: 'CategoryController',
+  action: 'list'
+},
 
   /***************************************************************************
   *                                                                          *

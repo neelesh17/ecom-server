@@ -8,15 +8,15 @@
 module.exports = {
 
   attributes: {
-    user_id: {
-      type: "string",
-      required: true,
-    },
+    // retailer_id: {
+    //   type: "string",
+    //   required: true,
+    // },
     title: {
       type: "string",
       required: true,
     },
-    img_src: {
+    imgsrc: {
       type: "string",
       required: true,
     },
