@@ -18,7 +18,8 @@ module.exports.policies = {
   ***************************************************************************/
 
   '*': true,
-  controllerName: {
-    'action-name': 'isAuthenticated'
-  }
+  CartController: {
+    '*': 'isAuthenticated'
+  },
+
 };
