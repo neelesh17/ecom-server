@@ -15,8 +15,11 @@ module.exports = {
     item: {
       type: 'json',
       required: true,
+    },
+    quantity: {
+      type: "string",
+      required: true
     }
-
   },
 
 };

@@ -71,6 +71,23 @@ module.exports.routes = {
   action: 'detail'
 },
 
+//Cart Routes
+'POST /locals/v1/cart/': {
+  controller: 'CartController',
+  action: 'create',
+},
+'POST /locals/v1/cart/:id': {
+  controller: 'CartController',
+  action: 'update',
+},
+'GET /locals/v1/cart/:user_id': {
+  controller: 'CartController',
+  action: 'list'
+},
+'DELETE /locals/v1/cart/:id':{
+  controller: 'CartController',
+  action: 'delete',
+}
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
