@@ -26,9 +26,9 @@ module.exports = {
     },
     status: {
       type: "string",
-      defaultsTo: "Initiated" //"Out for delivery" "Delivered"
+      defaultsTo: "Ordered" //"Out for delivery" "Delivered" "Canceled"
     },
-    price: {
+    total_price: {
       type: "string",
       required: true
     }

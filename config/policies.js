@@ -21,5 +21,8 @@ module.exports.policies = {
   CartController: {
     '*': 'isAuthenticated'
   },
+  OrderController :{
+    '*': 'isAuthenticated'
+  }
 
 };
