@@ -87,7 +87,25 @@ module.exports.routes = {
 'DELETE /locals/v1/cart/:id':{
   controller: 'CartController',
   action: 'delete',
-}
+},
+'DELETE /locals/v1/cart':{
+  controller: 'CartController',
+  action: 'clearcart',
+},
+
+//Order Routes
+'POST /locals/v1/order/': {
+  controller: 'OrderController',
+  action: 'create',
+},
+'GET /locals/v1/order/:user_id': {
+  controller: 'OrderController',
+  action: 'list'
+},
+'POST /locals/v1/order/:id': {
+  controller: 'OrderController',
+  action: 'cancle',
+},
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

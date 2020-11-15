@@ -43,5 +43,14 @@ module.exports = {
             return res.serverError(err);
         }
     },
+    clearcart: async function(req,res){
+        try{
+            await Cart.destroy({user_id: req.body.userId});
+            return res.ok()
+        }catch(err){
+            console.log(err);
+            return res.serverError(err);
+        }
+    },
 };
 
